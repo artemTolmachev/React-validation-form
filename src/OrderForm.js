@@ -23,9 +23,7 @@ import  {FormError}  from './FormErr';
     const [valid, setValid] = useState([]);
     const [arr, setArro] = useState(false);
     
-
-
-
+    
     function ValidateField(field, val){
         let validfieldErrors = value.fieldErrors;
         let emailValid = value.emailValid;

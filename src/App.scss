@@ -1,0 +1,111 @@
+body{
+    box-sizing: border-box;
+}
+
+// .wrapper{
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     width: 100%;
+//     height: 100vh;
+// }
+
+.main{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../src/image/ken-cheung.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &__social{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 50px;
+        background-color: #4569b6;
+        border-radius: 50px;
+        box-shadow: 0px 0px 22px 3px #030360;
+
+        &-wr{
+            margin-top: 35px;
+        }
+    }
+
+    .container{
+       padding: 0;
+        display: flex;
+        width: 80%;
+        background-color: white;
+        box-shadow: 0px 0px 20px #03032d;
+        z-index: 1;
+
+        &__left-wr{
+            padding-left: 7%;
+            position: relative;
+            z-index: 1;
+
+            p{
+                color: white;
+            }
+        }
+
+        &__left{
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 50%;
+            background-image: url(../src/image/ken-cheung.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            &::after{
+                content: '';
+                position:absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background-color: #3c14b5;
+                opacity: 0.7;
+            }
+        }
+
+     
+    }
+
+    &::after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #9016c1;
+        opacity: 0.7;
+        z-index: 0;
+    }
+    &::before{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        backdrop-filter: blur(10px);
+        z-index: 0;
+    }
+
+    &__logo{
+        position: relative;
+        font-size: 76px;
+        font-weight: 700;
+        line-height: 1;
+        color: white;
+        z-index: 10;
+}
+}
