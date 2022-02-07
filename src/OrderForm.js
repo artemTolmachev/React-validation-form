@@ -4,14 +4,12 @@ import  {FormError}  from './FormErr';
 
     function OrderForm(props) { //получаем инфу из заказа для отправки
     const[value, setValue] = useState({
-        Имя: '',
+        Name: '',
         Email: '',
-        Телефон: '',
-        Адрес: '',
-        Сообщение: '',
-        fieldErrors: {Имя : '', 
+        Phone: '',
+        fieldErrors: {Name : '', 
                     Email: '',
-                    Телефон: ''
+                    Phone: ''
                  },
         emailValid: false,
         nameValid: false,
@@ -21,35 +19,37 @@ import  {FormError}  from './FormErr';
     });
 
     const [valid, setValid] = useState([]);
-    const [arr, setArro] = useState(false);
-    
-    
+    // const [arr, setArro] = useState(false);
+    const [span1, setSpan1] = useState('');
+    const [span2, setSpan2] = useState('');
+    const [span3, setSpan3] = useState('');
+
     function ValidateField(field, val){
         let validfieldErrors = value.fieldErrors;
         let emailValid = value.emailValid;
         let nameValid = value.nameValid;
         let phoneValid = value.phoneValid;
-    
         switch(field) {
             case 'Email':
             emailValid = val.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-            validfieldErrors.Email = emailValid ? '' : 'не корректно введен';
+            validfieldErrors.Email = emailValid ? '' : 'address is incorrect';
             break;
 
-            case 'Имя':
+            case 'Name':
             nameValid = val.length >= 2;
-            validfieldErrors.Имя = nameValid ? '' : 'слишком короткое';
+            validfieldErrors.Name= nameValid ? '' : 'to short';
             break;
 
-            case 'Телефон':
+            case 'Phone':
             phoneValid = val.match(/^\+38[-(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/);
-            validfieldErrors.Телефон = phoneValid ? '': 'не корректно введен';
+            validfieldErrors.Phone = phoneValid ? '': 'number is incorrect';
             break;
             default:
             break;
         }
 
         setValue(prev => {
+            
             return{
                 ...prev,
                 fieldErrors: validfieldErrors,
@@ -83,86 +83,62 @@ import  {FormError}  from './FormErr';
     useEffect(() => {
         ValidateField(valid[0],valid[1]);
     },[valid]);// eslint-disable-line react-hooks/exhaustive-deps
-
-   function errorClass(error) {
-        return(error.length === 0 ? '' : 'has-error');
-    }
-
- 
+       
       function HendlerRelaud(){
         window.location.reload();
       }
-
+   
     return (
         <form action="" className='order-form'>
             <input type="hidden" name="Тема" value="Обратный звонок"/>
             <input type="hidden" name="admin_email[]" value="lidama65@mail.ua"/>
             <input type="hidden" name="form_subject" value="Заявка с сайта Сайт"/>
             <div className="panel panel-default">
-                <FormError formErrors={value.fieldErrors} />
+                <FormError formErrors={value.fieldErrors} formValid={value.formValid}/>
             </div>
             <div className='form-group'>
-                <label className='label-control' htmlFor="name">Ваше имя *</label>
-                <div className="elements-wr">
+                {/* <label className='label-control' htmlFor="name">Ваше имя *</label> */}
+                <div className={`elements-wr`}>
+                <span className={`fake__placeholder ${span1}`}>Full name</span>
                     <input type="text"
-                             name='Имя'
-                             value={value.Имя}
-                             onChange={handleChange} 
-                             placeholder='Ваше имя'
-                             className={`form-control ${errorClass(value.fieldErrors.Имя)}`}/>
+                             name='Name'
+                             value={value.Name}
+                             onChange={handleChange}
+                             onFocus={(event) => event.type === 'focus' ?  setSpan1('active') : false}
+                            //  placeholder='Ваше имя'
+                             className={`form-control`}/>
                 </div>
             </div>
 
             <div className='form-group'>
-                <label className='label-control' htmlFor="email">Email *</label>
-                <div className="elements-wr">
+                {/* <label className='label-control' htmlFor="email">Email *</label> */}
+                <div className={`elements-wr`}>
+                <span className={`fake__placeholder ${span2}`}>E-mail address</span>
                     <input type="email"
                           name='Email' 
                           value={value.Email}
-                          onChange={handleChange} 
-                          placeholder='Email'
-                          className={`form-control  ${errorClass(value.fieldErrors.Email)}`}/>                    
+                          onChange={handleChange}
+                          onFocus={(event) => event.type === 'focus' ?  setSpan2('active') : false}
+                        //   placeholder='Email'
+                          className={`form-control`}/>                    
                 </div>
             </div>
 
             <div className='form-group'>
-                <label className='label-control' htmlFor="phone">Телефон *</label>
-                <div className="elements-wr">
+                {/* <label className='label-control' htmlFor="phone">Телефон *</label> */}
+                <div className={`elements-wr`}>
+                <span className={`fake__placeholder ${span3}`}>Phone +389999999999</span>
                     <input type='tel' 
-                        name='Телефон'
-                        value={value.Телефон}
-                        className={`form-control ${errorClass(value.fieldErrors.Телефон)}`}
-                        placeholder='+389999999999'
+                        name='Phone'
+                        value={value.Phone}
+                        className={`form-control`}
+                        onFocus={(event) => event.type === 'focus' ? setSpan3('active') : false}
                         onChange={handleChange} />                 
                 </div>
             </div>
-
-            <div className='form-group'>
-                <label className='label-control'>Адрес доставки</label>
-                <div className="elements-wr">
-                    <textarea 
-                            name='Адрес' 
-                            onChange={handleChange}
-                            placeholder='Ваш город, номер отделения "Новой почты"' 
-                            className='form-control'/>                    
-                </div>
+            <div className="btn-wr">
+                <button onClick={HendlerRelaud} disabled={!value.formValid} className="btn-reset btn-primery order-btn">Login</button>
             </div>
-            <div className='form-group'>
-                <label className='label-control'>Cообщение</label>
-                <div className="elements-wr">
-                    <textarea
-                            name='Сообщение'
-                            placeholder='сообщение'
-
-                            className='form-control'/>    
-                </div>
-            </div>
-
-            <input type="text" name="test"
-            onChange={handleChange}
-            
-            />
-            <button onClick={HendlerRelaud} className="btn-reset btn-primery order-btn" >ОТПРАВИТЬ ЗАКАЗ</button>
         </form>
     );
 }
