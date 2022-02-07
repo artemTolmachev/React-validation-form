@@ -1,7 +1,7 @@
 # Validation form
 ## Trening project
 
-### Contain:
+### Contains:
 * Feedback form
 * Dising Figma
 
