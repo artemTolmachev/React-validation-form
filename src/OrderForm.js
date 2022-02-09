@@ -1,6 +1,31 @@
 import './OrderForm.scss';
 import React, {useEffect, useState} from 'react';
 import  {FormError}  from './FormErr';
+import { motion } from 'framer-motion';
+
+const textAnimation = {
+    hidden: {
+      x: 100,
+      opacity: 0
+    },
+    visible: custom => ({
+      x: 0,
+      opacity: 1,
+      transition: {delay: custom * 0.7}
+    })
+  }
+
+  const buttonAnimation = {
+    hidden: {
+      y: -50,
+      opacity: 0
+    },
+    visible: custom => ({
+      y: 0,
+      opacity: 1,
+      transition: {delay: custom * 0.7}
+    })
+  }
 
     function OrderForm(props) { //получаем инфу из заказа для отправки
     const[value, setValue] = useState({
@@ -89,7 +114,11 @@ import  {FormError}  from './FormErr';
       }
    
     return (
-        <form action="" className='order-form'>
+        <motion.form
+        initial = 'hidden'
+        whileInView = 'visible'
+        viewport={{amount: 0.7}}
+        action="" className='order-form'>
             <input type="hidden" name="Тема" value="Обратный звонок"/>
             <input type="hidden" name="admin_email[]" value="lidama65@mail.ua"/>
             <input type="hidden" name="form_subject" value="Заявка с сайта Сайт"/>
@@ -100,7 +129,10 @@ import  {FormError}  from './FormErr';
                 {/* <label className='label-control' htmlFor="name">Ваше имя *</label> */}
                 <div className={`elements-wr`}>
                 <span className={`fake__placeholder ${span1}`}>Full name</span>
-                    <input type="text"
+                    <motion.input 
+                            variants={textAnimation}
+                            custom = {1}
+                            type="text"
                              name='Name'
                              value={value.Name}
                              onChange={handleChange}
@@ -114,7 +146,10 @@ import  {FormError}  from './FormErr';
                 {/* <label className='label-control' htmlFor="email">Email *</label> */}
                 <div className={`elements-wr`}>
                 <span className={`fake__placeholder ${span2}`}>E-mail address</span>
-                    <input type="email"
+                    <motion.input 
+                    variants={textAnimation}
+                    custom = {2}
+                    type="email"
                           name='Email' 
                           value={value.Email}
                           onChange={handleChange}
@@ -128,7 +163,10 @@ import  {FormError}  from './FormErr';
                 {/* <label className='label-control' htmlFor="phone">Телефон *</label> */}
                 <div className={`elements-wr`}>
                 <span className={`fake__placeholder ${span3}`}>Phone +389999999999</span>
-                    <input type='tel' 
+                    <motion.input 
+                    variants={textAnimation}
+                    custom = {3}
+                    type='tel' 
                         name='Phone'
                         value={value.Phone}
                         className={`form-control`}
@@ -137,9 +175,12 @@ import  {FormError}  from './FormErr';
                 </div>
             </div>
             <div className="btn-wr">
-                <button onClick={HendlerRelaud} disabled={!value.formValid} className="btn-reset btn-primery order-btn">Login</button>
+                <motion.button 
+                variants={buttonAnimation}
+                custom={4}
+                onClick={HendlerRelaud} disabled={!value.formValid} className="btn-reset btn-primery order-btn">Login</motion.button>
             </div>
-        </form>
+        </motion.form>
     );
 }
 
