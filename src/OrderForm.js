@@ -117,7 +117,7 @@ const textAnimation = {
         <motion.form
         initial = 'hidden'
         whileInView = 'visible'
-        viewport={{amount: 0.7}}
+        viewport={{amount: 0.7,once: true}}
         action="" className='order-form'>
             <input type="hidden" name="Тема" value="Обратный звонок"/>
             <input type="hidden" name="admin_email[]" value="lidama65@mail.ua"/>
